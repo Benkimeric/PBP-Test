@@ -54,6 +54,47 @@ function* getOrderssaga(action: BaseAction) {
           value: { totalValue: '132,08.09', percentageIncrease: '+11' },
         },
       },
+
+      salesOrderList: {
+        list: [
+          {
+            saleOrder: '000123',
+            customer: 'Nordstrom',
+            date: '2020-03-15',
+            value: '$1650.00',
+            orderStatus: 'Pre-Prod',
+            reviewStatus: 'Approved ',
+            productionPlan: 'Pending',
+          },
+          {
+            saleOrder: '459009',
+            customer: 'Liberty',
+            date: '2019-11-15',
+            value: '$8750.00',
+            orderStatus: 'Delivered',
+            reviewStatus: 'Approved ',
+            productionPlan: 'MERSP20',
+          },
+          {
+            saleOrder: '678909',
+            customer: 'IKEA',
+            date: '2019-12-15',
+            value: '$21650.00',
+            orderStatus: 'Delivered',
+            reviewStatus: 'Approved ',
+            productionPlan: 'IKRSP76',
+          },
+          {
+            saleOrder: '890763',
+            customer: 'Mercado USA',
+            date: '2020-03-15',
+            value: '$1650.00',
+            orderStatus: 'In-Prod',
+            reviewStatus: 'Approved ',
+            productionPlan: 'Pending',
+          },
+        ],
+      },
     };
     yield put(getOrdersSuccess(response));
   } catch (error) {

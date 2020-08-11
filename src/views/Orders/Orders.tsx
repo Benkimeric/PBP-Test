@@ -78,7 +78,7 @@ const Orders: FC<any> = () => {
 
   const dispatch = useDispatch();
   const [orders, setOrders] = useState<any>();
-  const { ordersList } = useSelector((state: any) => state.orders);
+  const { ordersList } = useSelector((state: RootState) => state.orders);
 
   // simulate fetching of data
   useEffect(() => {
