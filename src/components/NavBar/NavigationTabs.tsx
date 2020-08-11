@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
 import { Header } from '../Header';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
     notification: {
       color: theme.palette.error.main,
     },
+    navLinks: {
+      textDecoration: 'none',
+    },
   }),
 );
 
@@ -41,12 +45,25 @@ const NavigationBar = () => {
       headerClass={classes.header}
       rightElements={
         <>
-          <Button className={classes.navigationButton}>Dashboard</Button>
-          <Button className={[classes.navigationButton, classes.activeNav].join(' ')}>Orders</Button>
-          <Button className={classes.navigationButton}>Production</Button>
-          <Button className={classes.navigationButton}>Financing</Button>
-          <Button className={classes.navigationButton}>Libraries</Button>
-          <Button className={classes.navigationButton}>Sign out</Button>
+          <Link to="/dashboard" className={classes.navLinks}>
+            <Button className={classes.navigationButton}>Dashboard</Button>
+          </Link>
+          <Link to="/orders" className={classes.navLinks}>
+            <Button className={[classes.navigationButton, classes.activeNav].join(' ')}>Orders</Button>
+          </Link>
+          <Link to="/production" className={classes.navLinks}>
+            <Button className={classes.navigationButton}>Production</Button>
+          </Link>
+          <Link to="/financing" className={classes.navLinks}>
+            <Button className={classes.navigationButton}>Financing</Button>
+          </Link>
+          <Link to="/libraries" className={classes.navLinks}>
+            <Button className={classes.navigationButton}>Libraries</Button>
+          </Link>
+          <Link to="/" className={classes.navLinks}>
+            <Button className={classes.navigationButton}>Sign out</Button>
+          </Link>
+
           <FontAwesomeIcon icon={faCog} className={classes.icon} />
           <FontAwesomeIcon icon={faUser} className={classes.icon} />
           <FontAwesomeIcon icon={faBell} className={[classes.icon, classes.notification].join(' ')} />
