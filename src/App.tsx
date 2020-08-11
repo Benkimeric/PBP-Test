@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core';
+import { CircularProgress, ThemeProvider } from '@material-ui/core';
 import React, { Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -9,7 +9,14 @@ import theme from './theme';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Suspense fallback={<div className="loader"> Loading... </div>}>
+      <Suspense
+        fallback={
+          <div className="loader">
+            <CircularProgress />
+            <span>Loading...</span>
+          </div>
+        }
+      >
         <BrowserRouter>
           <Routes />
         </BrowserRouter>

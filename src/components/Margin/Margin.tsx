@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, CardHeader, Divider, Typography } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Props } from './Margin.interface';
 import useStyles from './Margin.styles';
 
@@ -20,15 +20,15 @@ const Margin: FC<Props> = (props) => {
         }
       />
       <CardContent style={{ padding: 0 }}>
-        {marginData?.map((data) => (
-          <>
+        {marginData?.map((data, index) => (
+          <Fragment key={index}>
             <Box className={classes.list}>
               <Typography className={classes.label}>{data.label}</Typography>
               <Typography className={classes.plan}>{data.plan}</Typography>
               <Typography className={classes.plan}>{data.actual}</Typography>
             </Box>
             <Divider />
-          </>
+          </Fragment>
         ))}
       </CardContent>
     </Card>

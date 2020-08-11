@@ -1,6 +1,7 @@
-import { Grid, Divider, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
+import { Props } from './Banner.interface';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,17 +54,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Banner: FC<any> = () => {
+const Banner: FC<Props> = (props) => {
   const classes = useStyles();
+  const { marketPerformancePercentage, period, pending, inProduction, delivered } = props;
   return (
     <Grid className={classes.root} container spacing={2}>
       <Grid item xs={6}>
         <div>
           <Typography className={classes.name}>Total Sales Orders</Typography>
           <Typography variant="h5" className={classes.count}>
-            +16% over
+            {marketPerformancePercentage}% over
           </Typography>
-          <Typography className={classes.count}>Last Month</Typography>
+          <Typography className={classes.count}>Last {period}</Typography>
         </div>
       </Grid>
       <Grid className={classes.item} item xs={6}>
@@ -72,7 +74,7 @@ const Banner: FC<any> = () => {
             <div className={classes.div}>
               <Typography className={classes.name}>Pending</Typography>
               <Typography variant="h5" className={classes.count}>
-                1000
+                {pending}
               </Typography>
               <Typography className={classes.text}>Total Units</Typography>
             </div>
@@ -81,7 +83,7 @@ const Banner: FC<any> = () => {
             <div className={classes.div}>
               <Typography className={classes.name}>In-Production</Typography>
               <Typography variant="h5" className={classes.count}>
-                1000
+                {inProduction}
               </Typography>
               <Typography className={classes.text}>Total Units</Typography>
             </div>
@@ -90,7 +92,7 @@ const Banner: FC<any> = () => {
             <div className={[classes.div, classes.end].join(' ')}>
               <Typography className={classes.name}>Delivered</Typography>
               <Typography variant="h5" className={classes.count}>
-                1000
+                {delivered}
               </Typography>
               <Typography className={classes.text}>Total Units</Typography>
             </div>

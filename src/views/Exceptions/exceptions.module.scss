@@ -1,0 +1,28 @@
+.exceptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+
+  .message {
+    font-size: 16px;
+  }
+
+  .code {
+    font-size: 40px;
+  }
+
+  .homeLink {
+    width: 200px;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    background: #5f8d21;
+    border-color: #5b753b;
+    &:hover {
+      background: #5b753b;
+      border-color: #5b753b;
+    }
+  }
+}

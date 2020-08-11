@@ -4,8 +4,17 @@ import { Link } from 'react-router-dom';
 import { Props } from './PBPFinancing.interface';
 import useStyles from './PBPFinancing.styles';
 
-const PBPFinancing: FC<Props> = () => {
+const PBPFinancing: FC<Props> = (props) => {
   const classes = useStyles();
+  const {
+    currentBalance,
+    availablePercentage,
+    invoicingCurrentBalance,
+    invoicingAvailablePercentage,
+    nextPayDate,
+    amountDue,
+    avgRate,
+  } = props;
   return (
     <Card className={classes.card} elevation={1}>
       <CardHeader
@@ -24,31 +33,31 @@ const PBPFinancing: FC<Props> = () => {
         <Divider />
         <Box className={classes.box}>
           <Typography className={classes.rowName}>Advances</Typography>
-          <Typography className={classes.balance}>$13,8008.67</Typography>
-          <Typography className={classes.available}>34%</Typography>
+          <Typography className={classes.balance}>${currentBalance}</Typography>
+          <Typography className={classes.available}>{availablePercentage}%</Typography>
         </Box>
         <Divider />
         <Box className={classes.box}>
           <Typography className={classes.rowName}>Invoicing</Typography>
-          <Typography className={classes.balance}>$13,8008.67</Typography>
-          <Typography className={classes.available}>34%</Typography>
+          <Typography className={classes.balance}>${invoicingCurrentBalance}</Typography>
+          <Typography className={classes.available}>{invoicingAvailablePercentage}%</Typography>
         </Box>
         <Divider />
         <Box className={classes.summary}>
           <div>
             <Typography className={classes.titleText}>Next payment Date</Typography>
-            <Typography className={classes.balance}>05-12-2020</Typography>
+            <Typography className={classes.balance}>{nextPayDate}</Typography>
           </div>
           <div>
             <Typography className={classes.titleText}>Amount Due</Typography>
-            <Typography className={classes.balance}>$4569.13</Typography>
+            <Typography className={classes.balance}>${amountDue}</Typography>
           </div>
         </Box>
         <Box className={classes.summary}>
           <div style={{ height: 100, display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
             <div>
               <Typography className={classes.titleText}>Average Rate</Typography>
-              <Typography className={classes.balance}>2.4%</Typography>
+              <Typography className={classes.balance}>{avgRate}%</Typography>
             </div>
             <Typography className={classes.titleText}>
               Questions? <Link to="#">Contact Us.</Link>

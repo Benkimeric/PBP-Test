@@ -1,6 +1,7 @@
 import { Breadcrumbs, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Banner from '../../components/Banner/Banner';
 import { ChartComponent } from '../../components/ChartComponent';
 import ChartDescription from '../../components/ChartComponent/ChartDescription';
@@ -12,6 +13,9 @@ import { Margin } from '../../components/Margin';
 import { PBPFinancing } from '../../components/PBPFinancing';
 import { SearchInput } from '../../components/SearchInput';
 import { ShareActionIcons } from '../../components/ShareActionIcons';
+
+import { getOrders } from '../../redux/actionCreator/ordersActions';
+import { RootState } from '../../redux/reducers/typed';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +75,20 @@ const data = {
 
 const Orders: FC<any> = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState<any>();
+  const { ordersList } = useSelector((state: RootState) => state.orders);
+
+  // simulate fetching of data
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setOrders(ordersList);
+  }, [ordersList]);
+
   return (
     <>
       <Header
@@ -88,7 +106,13 @@ const Orders: FC<any> = () => {
           </>
         }
       />
-      <Banner />
+      <Banner
+        marketPerformancePercentage={orders?.saleOrders.marketPerformancePercentage}
+        period={orders?.saleOrders.period}
+        pending={orders?.saleOrders.units.pending}
+        inProduction={orders?.saleOrders.units.inProduction}
+        delivered={orders?.saleOrders.units.delivered}
+      />
       <Grid container>
         <Grid item className={classes.shareIcons}>
           <ShareActionIcons />
@@ -99,10 +123,17 @@ const Orders: FC<any> = () => {
           <Gantt tasks={data} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PBPFinancing />
+          <PBPFinancing
+            currentBalance={orders?.financing.advances.currentBalance}
+            availablePercentage={orders?.financing.advances.availablePercentage}
+            invoicingCurrentBalance={orders?.financing.invoicing.currentBalance}
+            invoicingAvailablePercentage={orders?.financing.invoicing.availablePercentage}
+            nextPayDate={orders?.financing.nextPayDate}
+            amountDue={orders?.financing.amountDue}
+            avgRate={orders?.financing.avgRate}
+          />
         </Grid>
       </Grid>
-
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <Margin
@@ -113,13 +144,13 @@ const Orders: FC<any> = () => {
             marginData={[
               {
                 label: 'This Week',
-                plan: '54%',
-                actual: '61%',
+                plan: `${orders?.margin.currentWeek.percentagePlan}%`,
+                actual: `${orders?.margin.currentWeek.percentageActual}%`,
               },
               {
                 label: 'This Month',
-                plan: '54%',
-                actual: '61%',
+                plan: `${orders?.margin.currentMonth.percentageActual}%`,
+                actual: `${orders?.margin.currentMonth.percentageActual}%`,
               },
             ]}
           />
@@ -132,13 +163,13 @@ const Orders: FC<any> = () => {
               marginData={[
                 {
                   label: 'Orders',
-                  plan: '12',
-                  actual: '09',
+                  plan: `${orders?.pendingOrders.orders.currentMonth}`,
+                  actual: `${orders?.pendingOrders.orders.lastMonth}`,
                 },
                 {
                   label: 'Units',
-                  plan: '1755',
-                  actual: '2219',
+                  plan: `${orders?.pendingOrders.units.currentMonth}`,
+                  actual: `${orders?.pendingOrders.units.lastMonth}`,
                 },
               ]}
             />
@@ -154,8 +185,14 @@ const Orders: FC<any> = () => {
             chartDescription={
               <ChartDescription
                 chartDescriptionData={[
-                  { label: 'Total Orders', value: '9876' },
-                  { label: 'Last Month', value: '+14%' },
+                  {
+                    label: 'Total Orders',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.units.totalSalesOrderUnits,
+                  },
+                  {
+                    label: 'Last Month',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.units.percentageIncrease,
+                  },
                 ]}
               />
             }
@@ -174,15 +211,20 @@ const Orders: FC<any> = () => {
             chartDescription={
               <ChartDescription
                 chartDescriptionData={[
-                  { label: 'Total Value', value: '$132,08.09' },
-                  { label: 'Last Month', value: '+11%' },
+                  {
+                    label: 'Total Value',
+                    value: '$' + orders?.pendingOrders.salesOrderValueAndUnits.value.totalValue,
+                  },
+                  {
+                    label: 'Last Month',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.value.percentageIncrease + '%',
+                  },
                 ]}
               />
             }
           />
         </Grid>
       </Grid>
-
       <Grid container>
         <Grid item xs={12}>
           <div className={classes.stepper}>
@@ -191,7 +233,6 @@ const Orders: FC<any> = () => {
           </div>
         </Grid>
       </Grid>
-
       <CustomTable />
     </>
   );
