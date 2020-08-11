@@ -74,13 +74,11 @@ const data = {
 };
 
 const Orders: FC<any> = () => {
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const [orders, setOrders] = useState<any>();
   const { ordersList } = useSelector((state: any) => state.orders);
-
-  const classes = useStyles();
-
-  console.log('ordersList.saleOrders. ordersList.saleOrders.', ordersList);
 
   // simulate fetching of data
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
+import { Props } from './Banner.interface';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Banner: FC<any> = (props) => {
+const Banner: FC<Props> = (props) => {
   const classes = useStyles();
   const { marketPerformancePercentage, period, pending, inProduction, delivered } = props;
   return (
