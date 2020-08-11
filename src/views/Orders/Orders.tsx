@@ -123,7 +123,15 @@ const Orders: FC<any> = () => {
           <Gantt tasks={data} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PBPFinancing />
+          <PBPFinancing
+            currentBalance={orders?.financing.advances.currentBalance}
+            availablePercentage={orders?.financing.advances.availablePercentage}
+            invoicingCurrentBalance={orders?.financing.invoicing.currentBalance}
+            invoicingAvailablePercentage={orders?.financing.invoicing.availablePercentage}
+            nextPayDate={orders?.financing.nextPayDate}
+            amountDue={orders?.financing.amountDue}
+            avgRate={orders?.financing.avgRate}
+          />
         </Grid>
       </Grid>
       <Grid container spacing={2}>
