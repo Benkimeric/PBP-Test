@@ -144,13 +144,13 @@ const Orders: FC<any> = () => {
             marginData={[
               {
                 label: 'This Week',
-                plan: '54%',
-                actual: '61%',
+                plan: `${orders?.margin.currentWeek.percentagePlan}%`,
+                actual: `${orders?.margin.currentWeek.percentageActual}%`,
               },
               {
                 label: 'This Month',
-                plan: '54%',
-                actual: '61%',
+                plan: `${orders?.margin.currentMonth.percentageActual}%`,
+                actual: `${orders?.margin.currentMonth.percentageActual}%`,
               },
             ]}
           />
@@ -163,13 +163,13 @@ const Orders: FC<any> = () => {
               marginData={[
                 {
                   label: 'Orders',
-                  plan: '12',
-                  actual: '09',
+                  plan: `${orders?.pendingOrders.orders.currentMonth}`,
+                  actual: `${orders?.pendingOrders.orders.lastMonth}`,
                 },
                 {
                   label: 'Units',
-                  plan: '1755',
-                  actual: '2219',
+                  plan: `${orders?.pendingOrders.units.currentMonth}`,
+                  actual: `${orders?.pendingOrders.units.lastMonth}`,
                 },
               ]}
             />
@@ -185,8 +185,14 @@ const Orders: FC<any> = () => {
             chartDescription={
               <ChartDescription
                 chartDescriptionData={[
-                  { label: 'Total Orders', value: '9876' },
-                  { label: 'Last Month', value: '+14%' },
+                  {
+                    label: 'Total Orders',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.units.totalSalesOrderUnits,
+                  },
+                  {
+                    label: 'Last Month',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.units.percentageIncrease,
+                  },
                 ]}
               />
             }
@@ -205,8 +211,14 @@ const Orders: FC<any> = () => {
             chartDescription={
               <ChartDescription
                 chartDescriptionData={[
-                  { label: 'Total Value', value: '$132,08.09' },
-                  { label: 'Last Month', value: '+11%' },
+                  {
+                    label: 'Total Value',
+                    value: '$' + orders?.pendingOrders.salesOrderValueAndUnits.value.totalValue,
+                  },
+                  {
+                    label: 'Last Month',
+                    value: orders?.pendingOrders.salesOrderValueAndUnits.value.percentageIncrease + '%',
+                  },
                 ]}
               />
             }

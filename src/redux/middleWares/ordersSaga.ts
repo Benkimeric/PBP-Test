@@ -51,7 +51,7 @@ function* getOrderssaga(action: BaseAction) {
         },
         salesOrderValueAndUnits: {
           units: { totalSalesOrderUnits: 9876, percentageIncrease: 14 },
-          value: { totalValue: 9876, percentageIncrease: 11 },
+          value: { totalValue: '132,08.09', percentageIncrease: '+11' },
         },
       },
     };
