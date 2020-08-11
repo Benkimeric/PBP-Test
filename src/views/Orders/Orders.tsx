@@ -1,6 +1,7 @@
 import { Breadcrumbs, Grid, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Banner from '../../components/Banner/Banner';
 import { ChartComponent } from '../../components/ChartComponent';
 import ChartDescription from '../../components/ChartComponent/ChartDescription';
@@ -12,6 +13,9 @@ import { Margin } from '../../components/Margin';
 import { PBPFinancing } from '../../components/PBPFinancing';
 import { SearchInput } from '../../components/SearchInput';
 import { ShareActionIcons } from '../../components/ShareActionIcons';
+
+import { getOrders } from '../../redux/actionCreator/ordersActions';
+import { RootState } from '../../redux/reducers/typed';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,7 +74,23 @@ const data = {
 };
 
 const Orders: FC<any> = () => {
+  const dispatch = useDispatch();
+  const [orders, setOrders] = useState<any>();
+  const { ordersList } = useSelector((state: any) => state.orders);
+
   const classes = useStyles();
+
+  console.log('ordersList.saleOrders. ordersList.saleOrders.', ordersList);
+
+  // simulate fetching of data
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setOrders(ordersList);
+  }, [ordersList]);
+
   return (
     <>
       <Header
@@ -88,7 +108,13 @@ const Orders: FC<any> = () => {
           </>
         }
       />
-      <Banner />
+      <Banner
+        marketPerformancePercentage={orders?.saleOrders.marketPerformancePercentage}
+        period={orders?.saleOrders.period}
+        pending={orders?.saleOrders.units.pending}
+        inProduction={orders?.saleOrders.units.inProduction}
+        delivered={orders?.saleOrders.units.delivered}
+      />
       <Grid container>
         <Grid item className={classes.shareIcons}>
           <ShareActionIcons />
@@ -102,7 +128,6 @@ const Orders: FC<any> = () => {
           <PBPFinancing />
         </Grid>
       </Grid>
-
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <Margin
@@ -182,7 +207,6 @@ const Orders: FC<any> = () => {
           />
         </Grid>
       </Grid>
-
       <Grid container>
         <Grid item xs={12}>
           <div className={classes.stepper}>
@@ -191,7 +215,6 @@ const Orders: FC<any> = () => {
           </div>
         </Grid>
       </Grid>
-
       <CustomTable />
     </>
   );

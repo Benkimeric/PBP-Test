@@ -1,8 +1,8 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 
-// const Orders = lazy(() => import('../views/Orders'));
-import { Orders } from '../views/Orders';
 import RoutesInterface from './typed';
+
+const Orders = lazy(() => import('../views/Orders'));
 
 const routes: RoutesInterface[] = [
   {

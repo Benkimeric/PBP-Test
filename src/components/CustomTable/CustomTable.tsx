@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
